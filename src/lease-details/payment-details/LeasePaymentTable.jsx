@@ -15,6 +15,7 @@ function LeasePaymentsTable({ transactions, ...props }) {
                 <th>Status</th>
                 <th>Amount</th>
                 <th>Transaction ID</th>
+                <th>Type</th>
             </tr>
             </thead>
             <tbody>

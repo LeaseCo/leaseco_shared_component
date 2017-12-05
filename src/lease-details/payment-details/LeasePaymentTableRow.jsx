@@ -10,6 +10,7 @@ function LeasePaymentTableRow({ transaction, ...props }) {
             <td>{transaction.status}</td>
             <td>${transaction.amount}</td>
             <td>{transaction.id}</td>
+            <td>{transaction.type}</td>
         </tr>
     );
 }
