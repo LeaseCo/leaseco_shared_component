@@ -1,0 +1,25 @@
+{
+  "name": "leaseco_shared_component",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/napalm272/leaseco_shared_component.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/napalm272/leaseco_shared_component/issues"
+  },
+  "homepage": "https://github.com/napalm272/leaseco_shared_component#readme",
+  "peerDependencies": {
+    "braintree-web": "^3.25.0",
+    "moment": "^2.19.1",
+    "react": "^16.0.0",
+    "react-bootstrap": "^0.31.5"
+  }
+}
