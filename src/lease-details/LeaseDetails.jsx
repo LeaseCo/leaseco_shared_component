@@ -3,6 +3,12 @@ import {Row, Col} from 'react-bootstrap';
 import moment from 'moment';
 
 function LeaseDetails({ lease, ...props }) {
+
+    let date = 'N/A';
+    if (lease.nextBillingDate) {
+        date = moment(lease.nextBillingDate).format('LL');
+    }
+
     return (
         <div>
             <Row>
@@ -27,7 +33,7 @@ function LeaseDetails({ lease, ...props }) {
             <Row>
                 <Col xs={3} md={3}>
                     <h3>Next Billing Date</h3>
-                    <h4>{moment(lease.nextBillingDate).format('LL')}</h4>
+                    <h4>{date}</h4>
                 </Col>
                 <Col xs={3} md={3}>
                     <h3>Next Billing Due</h3>
