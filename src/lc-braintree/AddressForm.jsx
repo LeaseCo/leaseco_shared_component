@@ -1,8 +1,21 @@
 import React from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import FieldGroup from '../FieldGroup';
+import Select from 'react-select';
+import STATES from './select/states';
+import 'leaseco_shared_component/src/lc-braintree/select/react-select.css';
 
 function AddressForm({ handleChange, billingAddress, ...props }) {
+    function selectOnChangeHandler(state) {
+        const event = {
+            target : {
+                value : state,
+                key : 'region'
+            }
+        };
+        handleChange(event);
+    }
+
     return (
         <Grid>
             <Row>
@@ -83,15 +96,17 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                     />
                 </Col>
                 <Col xs={2} sm={2} md={2}>
-                    <FieldGroup
+                    <Select
                         id="region"
-                        type="text"
+                        autoFocus
+                        options={STATES}
+                        simpleValue
+                        clearable={true}
                         name="region"
-                        placeholder="State"
                         value={billingAddress.region}
-                        error="This field is required."
-                        onChange={handleChange}
-                        required
+                        onChange={selectOnChangeHandler}
+                        openOnClick={false}
+                        searchable={true}
                     />
                 </Col>
                 <Col xs={2} sm={2} md={2}>

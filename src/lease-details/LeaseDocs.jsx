@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonToolbar, Row, Col, DropdownButton, MenuItem} from 'react-bootstrap';
+import {Button, ButtonGroup, Row, Col, DropdownButton, MenuItem} from 'react-bootstrap';
 
 function LeaseDocs({ agreements, statements, ...props }) {
 
@@ -12,14 +12,20 @@ function LeaseDocs({ agreements, statements, ...props }) {
     });
 
     return (
-        <ButtonToolbar>
+        <ButtonGroup>
             <DropdownButton id="dropDownMenu" bsStyle="primary" title='Agreements'>
                 {agreementDropdownRows}
             </DropdownButton>
-            <DropdownButton id="dropDownMenu" bsStyle="primary" title='Statements'>
-                {statementDropdownRows}
-            </DropdownButton>
-        </ButtonToolbar>
+            {
+                props.status === 'Authorized' ?
+                    (<div></div>) :
+                    (
+                        <DropdownButton id="dropDownMenu" bsStyle="primary" title='Statements'>
+                            {statementDropdownRows}
+                        </DropdownButton>
+                    )
+            }
+        </ButtonGroup>
     );
 }
 export default LeaseDocs;

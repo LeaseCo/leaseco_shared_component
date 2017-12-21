@@ -12,7 +12,7 @@ class EventsList extends React.Component {
     render(){
         let tableRows = this.props.events.map((event)=>{
             return (
-                <EventRow event={event} />
+                <EventRow key={event.eventInfo.createdAt} event={event} />
             )
         });
 
