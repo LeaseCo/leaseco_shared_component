@@ -10,7 +10,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
         const event = {
             target : {
                 value : state,
-                key : 'region'
+                name : 'region'
             }
         };
         handleChange(event);
@@ -95,7 +95,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                         required
                     />
                 </Col>
-                <Col xs={2} sm={2} md={2}>
+                <Col xs={4} sm={4} md={4}>
                     <Select
                         id="region"
                         autoFocus
