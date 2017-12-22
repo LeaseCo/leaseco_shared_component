@@ -13,6 +13,40 @@ const STYLES = {
         'color': 'black'
     }
 };
+
+function getBraintreeError(error) {
+    const code = error.code;
+    if (code === "HOSTED_FIELDS_FIELDS_EMPTY") {
+        return 'All fields are empty! Please fill out the form.';
+    }
+
+    if (code === "HOSTED_FIELDS_FIELDS_INVALID") {
+        const invalidFieldMap = {
+            'number': 'Credit Card Number',
+            'cvv': 'CVV2',
+            'expirationMonth': 'Expiration Month',
+            'expirationYear': 'Expiration Year'
+        };
+        const invalidFieldNames = error.details.invalidFieldKeys.reduce(function(nameArr, item){
+            const val = invalidFieldMap[item] ? invalidFieldMap[item] : item;
+            nameArr.push(val);
+            return nameArr;
+        }, []).join(', ');
+        return 'The following fields are invalid: ' + invalidFieldNames;
+    }
+
+    if (code === 'HOSTED_FIELDS_FAILED_TOKENIZATION') {
+        return 'Please re-check whether the card is valid.';
+    }
+
+    if (code === 'HOSTED_FIELDS_TOKENIZATION_NETWORK_ERROR') {
+        return 'A network error occurred when submitting your payment ' +
+        'information, please try again.';
+    }
+
+    return "";
+}
+
 const FIELDS = {
     number: {
         selector: '#card-number',
@@ -44,6 +78,7 @@ class BraintreeForm extends React.Component {
         this.hostedFieldsInstance = null;
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        console.log(props.errorMessage, 'props');
         this.state = {
             formDisabled: true,
             billingAddress: {
@@ -56,11 +91,19 @@ class BraintreeForm extends React.Component {
                 extendedAddress: '',
                 countryName: 'US'
             },
-            showAddress: props.showAddress
+            showAddress: props.showAddress,
+            errorMessage: props.errorMessage
         };
 
     }
-
+    componentWillReceiveProps(props) {
+        console.log('new props', props);
+        this.setState(prevState => {
+            return {
+                errorMessage: props.errorMessage
+            }
+        })
+    }
     componentDidMount() {
         this.initBraintreeForm();
     }
@@ -93,19 +136,33 @@ class BraintreeForm extends React.Component {
 
     async onSubmit(e){
         e.preventDefault();
-        if (this.props.tokenSubmit) {
-            this.props.onSubmit('', this.state.billingAddress);
-        } else {
-            const { nonce } = await this.hostedFieldsInstance.tokenize();
-            this.props.onSubmit(nonce, this.state.billingAddress);
+        try {
+            if (this.props.tokenSubmit) {
+                this.props.onSubmit('', this.state.billingAddress);
+            } else {
+                const { nonce } = await this.hostedFieldsInstance.tokenize();
+                this.props.onSubmit(nonce, this.state.billingAddress);
+            }
+        } catch(e) {
+            const errorMessage = getBraintreeError(e);
+            this.setState(prevState => {
+                return {
+                    errorMessage
+                }
+            });
+            console.log(e.message, e.code);
         }
+
     }
 
     render(){
+        console.log(this.state.errorMessage);
+        console.log(this.props.errorMessage);
         if (!this.state.showAddress) {
             return (
                 <Form onSubmit={this.onSubmit}>
                     {this.props.children}
+                    <div> asdfasdf {this.state.errorMessage} </div>
                 </Form>
             )
         }
@@ -114,6 +171,7 @@ class BraintreeForm extends React.Component {
             <Form onSubmit={this.onSubmit}>
                 <AddressForm billingAddress={this.state.billingAddress} handleChange={this.handleChange}/>
                 {this.props.children}
+                <div> asdfasf {this.state.errorMessage} </div>
             </Form>
         )
     }

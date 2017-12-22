@@ -65,7 +65,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                         value={billingAddress.postalCode}
                         error="This field is required."
                         onChange={handleChange}
-                        required
+
                     />
                 </Col>
             </Row>
