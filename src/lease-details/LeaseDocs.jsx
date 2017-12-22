@@ -13,16 +13,18 @@ function LeaseDocs({ agreements, statements, ...props }) {
 
     return (
         <ButtonGroup>
-            <DropdownButton id="dropDownMenu" bsStyle="primary" title='Agreements'>
-                {agreementDropdownRows}
-            </DropdownButton>
             {
                 props.status === 'Authorized' ?
-                    (<div></div>) :
+                    (<div/>) :
                     (
-                        <DropdownButton id="dropDownMenu" bsStyle="primary" title='Statements'>
-                            {statementDropdownRows}
-                        </DropdownButton>
+                        <div>
+                            <DropdownButton id="dropDownMenu" bsStyle="primary" title='Agreements'>
+                                {agreementDropdownRows}
+                            </DropdownButton>
+                            <DropdownButton id="dropDownMenu" bsStyle="primary" title='Statements'>
+                                {statementDropdownRows}
+                            </DropdownButton>
+                        </div>
                     )
             }
         </ButtonGroup>
