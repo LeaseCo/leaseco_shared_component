@@ -6,11 +6,19 @@ function CustomerForm({ customer, submit, handleChange, status,...props }) {
     return (
         <Form onSubmit={submit}>
             <FieldGroup
-                id="name"
+                id="firstName"
                 type="text"
-                label="Name"
-                value={customer.name}
-                name="name"
+                label="First Name"
+                value={customer.firstName}
+                name="firstName"
+                onChange={handleChange}
+            />
+            <FieldGroup
+                id="lastName"
+                type="text"
+                label="Last Name"
+                value={customer.lastName}
+                name="lastName"
                 onChange={handleChange}
             />
             <FieldGroup
