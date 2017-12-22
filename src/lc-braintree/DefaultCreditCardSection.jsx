@@ -4,7 +4,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 class DefaultCreditCardSection extends React.Component {
     render(){
         return (
-            <Grid>
+            <div>
                 <Row>
                     <Col sm={8}>
                         <div className="form-group">
@@ -40,7 +40,7 @@ class DefaultCreditCardSection extends React.Component {
                         </div>
                    </Col>
                 </Row>
-            </Grid>
+            </div>
         )
     }
 }
