@@ -63,10 +63,6 @@ const FIELDS = {
     expirationYear: {
         selector: '#expiration-year',
         placeholder: 'YY'
-    },
-    postalCode: {
-        selector: '#postal-code',
-        placeholder: '90210'
     }
 };
 
