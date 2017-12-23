@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import braintree from 'braintree-web';
 import AddressForm from './AddressForm';
-
+import NotificationSystem from 'react-notification-system';
 const STYLES = {
     'input': {
         'font-size': '14px',
@@ -78,7 +78,8 @@ class BraintreeForm extends React.Component {
         this.hostedFieldsInstance = null;
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        console.log(props.errorMessage, 'props');
+
+        this._notificationSystem = null;
         this.state = {
             formDisabled: true,
             billingAddress: {
@@ -94,18 +95,21 @@ class BraintreeForm extends React.Component {
             showAddress: props.showAddress,
             errorMessage: props.errorMessage
         };
-
     }
     componentWillReceiveProps(props) {
-        console.log('new props', props);
-        this.setState(prevState => {
-            return {
-                errorMessage: props.errorMessage
-            }
-        })
+        if (props.errorMessage === ''){
+            return
+        }
+        this._notificationSystem.addNotification({
+            message: props.errorMessage,
+            level: 'error',
+            position: 'bc'
+        });
     }
     componentDidMount() {
         this.initBraintreeForm();
+        this._notificationSystem = this.refs.notificationSystem;
+
     }
 
     async initBraintreeForm(){
@@ -144,34 +148,30 @@ class BraintreeForm extends React.Component {
                 this.props.onSubmit(nonce, this.state.billingAddress);
             }
         } catch(e) {
-            const errorMessage = getBraintreeError(e);
-            this.setState(prevState => {
-                return {
-                    errorMessage
-                }
+            this._notificationSystem.addNotification({
+                message: getBraintreeError(e),
+                level: 'error',
+                position: 'bc'
             });
-            console.log(e.message, e.code);
         }
 
     }
 
     render(){
-        console.log(this.state.errorMessage);
-        console.log(this.props.errorMessage);
+
         if (!this.state.showAddress) {
             return (
                 <Form onSubmit={this.onSubmit}>
+                    <NotificationSystem ref="notificationSystem" />
                     {this.props.children}
-                    <div> asdfasdf {this.state.errorMessage} </div>
                 </Form>
             )
         }
         return (
-
             <Form onSubmit={this.onSubmit}>
+                <NotificationSystem ref="notificationSystem" />
                 <AddressForm billingAddress={this.state.billingAddress} handleChange={this.handleChange}/>
                 {this.props.children}
-                <div> asdfasf {this.state.errorMessage} </div>
             </Form>
         )
     }
