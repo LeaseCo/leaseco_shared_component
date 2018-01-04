@@ -6,34 +6,30 @@ const VALIDATION_MAP = {
     ERROR: "error",
     SUCCESS: "success"
 }
+
 class FieldGroup extends React.Component {
 
     constructor(props) {
         super(props);
-        const {validationFunction, validationChange, ...formProps} = this.props;
-
+        console.log(props);
         this.state = {
             isPristine: true,
-            formProps
         };
 
-        this.formProps = formProps;
-        this.validationFunction = validationFunction;
-        this.validationChange = validationChange;
-        console.log(props, this.validationChange);
         this.handleBlur = this.handleBlur.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.validateValue = this.validateValue.bind(this);
     }
     validateValue(event) {
-        console.log("HERE", event.value);
-        if (!this.validationFunction(event.value)) {
-            this.validationChange(event.target.name, VALIDATION_MAP.ERROR);
+        console.log(this.props.validationFunction, event.target.value, this.props.validationFunction(event.target.value));
+        if (!this.props.validationFunction(event.target.value)) {
+            this.props.validationChange(event.target.name, VALIDATION_MAP.ERROR);
             return;
         }
-        this.validationChange(event.target.name, VALIDATION_MAP.ERROR);
+        this.props.validationChange(event.target.name, VALIDATION_MAP.SUCCESS);
     }
     handleFormChange(event) {
+        console.log("event");
         this.props.onChange(event);
         if (!this.state.isPristine) {
             this.validateValue(event);
@@ -52,14 +48,12 @@ class FieldGroup extends React.Component {
     }
 
     render() {
-        console.log(this.state.formProps, 'why is this so hard');
-        const {validationFunction, validationChange, ...formProps} = this.props;
         const fieldProps = {
-            handleBlur: this.handleBlur,
             handleFormChange: this.handleFormChange,
-            formProps
-        };
-        if (this.formProps.mask) {
+            handleBlur: this.handleBlur,
+            ...this.props
+        }
+        if (this.props.mask) {
             return (
                 <MaskedFormField {...fieldProps} />
             )
