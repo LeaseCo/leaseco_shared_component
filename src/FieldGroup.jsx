@@ -1,6 +1,7 @@
 import React from 'react';
 import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import FormField from './FormField';
+import SelectFormField from './SelectFormField';
 import MaskedFormField from "./MaskedFormField";
 const VALIDATION_MAP = {
     ERROR: "error",
@@ -13,6 +14,7 @@ class FieldGroup extends React.Component {
         super(props);
         this.state = {
             isPristine: true,
+            errorMessage: ''
         };
 
         this.handleBlur = this.handleBlur.bind(this);
@@ -20,11 +22,22 @@ class FieldGroup extends React.Component {
         this.validateValue = this.validateValue.bind(this);
     }
     validateValue(event) {
-        if (!this.props.validationFunction(event.target.value)) {
+        const validationResult = this.props.validationFunction(event.target.value);
+        if (validationResult !== '') {
             this.props.validationChange(event.target.name, VALIDATION_MAP.ERROR);
+            this.setState(prevState => {
+                return {
+                    errorMessage: validationResult
+                }
+            });
             return;
         }
         this.props.validationChange(event.target.name, VALIDATION_MAP.SUCCESS);
+        this.setState(prevState => {
+            return {
+                errorMessage: validationResult
+            }
+        });
     }
     handleFormChange(event) {
         this.props.onChange(event);
@@ -48,6 +61,7 @@ class FieldGroup extends React.Component {
         const fieldProps = {
             handleFormChange: this.handleFormChange,
             handleBlur: this.handleBlur,
+            error: this.state.errorMessage,
             ...this.props
         };
         if (this.props.mask) {
@@ -55,7 +69,11 @@ class FieldGroup extends React.Component {
                 <MaskedFormField {...fieldProps} />
             )
         }
-
+        if (this.props.options) {
+            return (
+                <SelectFormField {...fieldProps} />
+            )
+        }
         return (
             <FormField {...fieldProps} />
         );
