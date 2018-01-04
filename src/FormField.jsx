@@ -1,12 +1,12 @@
 import React from 'react';
 import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import MaskedInput from 'react-text-mask';
 
 function FormField({ validationState, handleFormChange, handleBlur, id, label, help,  error, ...props }) {
-    console.log(handleFormChange);
     return (
         <FormGroup controlId={id} validationState={validationState}>
             <ControlLabel>{label}</ControlLabel>
-            <FormControl onChange={handleFormChange} onBlur={handleBlur} {...props} />
+            <FormControl  {...props}  onChange={handleFormChange} onBlur={handleBlur}/>
             {help && <HelpBlock>{help}</HelpBlock>}
             {validationState === "error" && <HelpBlock>{error}</HelpBlock>}
         </FormGroup>

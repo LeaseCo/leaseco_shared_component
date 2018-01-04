@@ -11,7 +11,6 @@ class FieldGroup extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             isPristine: true,
         };
@@ -21,7 +20,6 @@ class FieldGroup extends React.Component {
         this.validateValue = this.validateValue.bind(this);
     }
     validateValue(event) {
-        console.log(this.props.validationFunction, event.target.value, this.props.validationFunction(event.target.value));
         if (!this.props.validationFunction(event.target.value)) {
             this.props.validationChange(event.target.name, VALIDATION_MAP.ERROR);
             return;
@@ -29,7 +27,6 @@ class FieldGroup extends React.Component {
         this.props.validationChange(event.target.name, VALIDATION_MAP.SUCCESS);
     }
     handleFormChange(event) {
-        console.log("event");
         this.props.onChange(event);
         if (!this.state.isPristine) {
             this.validateValue(event);
@@ -43,8 +40,8 @@ class FieldGroup extends React.Component {
                     isPristine: false
                 }
             });
-            this.validateValue(event);
         }
+        this.validateValue(event);
     }
 
     render() {
@@ -52,7 +49,7 @@ class FieldGroup extends React.Component {
             handleFormChange: this.handleFormChange,
             handleBlur: this.handleBlur,
             ...this.props
-        }
+        };
         if (this.props.mask) {
             return (
                 <MaskedFormField {...fieldProps} />
