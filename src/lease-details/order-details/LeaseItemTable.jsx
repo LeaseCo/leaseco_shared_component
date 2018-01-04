@@ -11,7 +11,6 @@ function LeaseItemTable({ orders, ...props }) {
         <Table responsive striped bordered condensed hover>
             <thead>
             <tr>
-                <th></th>
                 <th>SKU</th>
                 <th>Item</th>
                 <th>Price</th>
