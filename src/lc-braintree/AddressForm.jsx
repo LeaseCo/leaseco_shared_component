@@ -17,7 +17,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
     }
 
     return (
-        <Grid>
+        <div>
             <Row>
                 <Col xs={6} sm={6} md={6}>
                     <FieldGroup
@@ -78,7 +78,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                         value={billingAddress.postalCode}
                         error="This field is required."
                         onChange={handleChange}
-                        required
+
                     />
                 </Col>
             </Row>
@@ -122,7 +122,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                     />
                 </Col>
             </Row>
-        </Grid>
+        </div>
     )
 }
 

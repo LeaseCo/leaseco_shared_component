@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import braintree from 'braintree-web';
 import AddressForm from './AddressForm';
-
+import NotificationSystem from 'react-notification-system';
 const STYLES = {
     'input': {
         'font-size': '14px',
@@ -13,6 +13,40 @@ const STYLES = {
         'color': 'black'
     }
 };
+
+function getBraintreeError(error) {
+    const code = error.code;
+    if (code === "HOSTED_FIELDS_FIELDS_EMPTY") {
+        return 'All fields are empty! Please fill out the form.';
+    }
+
+    if (code === "HOSTED_FIELDS_FIELDS_INVALID") {
+        const invalidFieldMap = {
+            'number': 'Credit Card Number',
+            'cvv': 'CVV2',
+            'expirationMonth': 'Expiration Month',
+            'expirationYear': 'Expiration Year'
+        };
+        const invalidFieldNames = error.details.invalidFieldKeys.reduce(function(nameArr, item){
+            const val = invalidFieldMap[item] ? invalidFieldMap[item] : item;
+            nameArr.push(val);
+            return nameArr;
+        }, []).join(', ');
+        return 'The following fields are invalid: ' + invalidFieldNames;
+    }
+
+    if (code === 'HOSTED_FIELDS_FAILED_TOKENIZATION') {
+        return 'Please re-check whether the card is valid.';
+    }
+
+    if (code === 'HOSTED_FIELDS_TOKENIZATION_NETWORK_ERROR') {
+        return 'A network error occurred when submitting your payment ' +
+        'information, please try again.';
+    }
+
+    return "";
+}
+
 const FIELDS = {
     number: {
         selector: '#card-number',
@@ -29,10 +63,6 @@ const FIELDS = {
     expirationYear: {
         selector: '#expiration-year',
         placeholder: 'YY'
-    },
-    postalCode: {
-        selector: '#postal-code',
-        placeholder: '90210'
     }
 };
 
@@ -44,25 +74,38 @@ class BraintreeForm extends React.Component {
         this.hostedFieldsInstance = null;
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
+        this._notificationSystem = null;
         this.state = {
             formDisabled: true,
             billingAddress: {
-                firstName: '',
-                lastName: '',
-                postalCode: '',
-                region: '',
-                locality: '',
-                streetAddress: '',
-                extendedAddress: '',
+                firstName: props.address.firstName || '',
+                lastName: props.address.lastName || '',
+                postalCode: props.address.postalCode || '',
+                region: props.address.region || '',
+                locality: props.address.locality || '',
+                streetAddress: props.address.streetAddress || '',
+                extendedAddress: props.address.extendedAddress || '',
                 countryName: 'US'
             },
-            showAddress: props.showAddress
+            showAddress: props.showAddress,
+            errorMessage: props.errorMessage
         };
-
     }
-
+    componentWillReceiveProps(props) {
+        if (props.errorMessage === ''){
+            return
+        }
+        this._notificationSystem.addNotification({
+            message: props.errorMessage,
+            level: 'error',
+            position: 'bc'
+        });
+    }
     componentDidMount() {
         this.initBraintreeForm();
+        this._notificationSystem = this.refs.notificationSystem;
+
     }
 
     async initBraintreeForm(){
@@ -93,25 +136,36 @@ class BraintreeForm extends React.Component {
 
     async onSubmit(e){
         e.preventDefault();
-        if (this.props.tokenSubmit) {
-            this.props.onSubmit('', this.state.billingAddress);
-        } else {
-            const { nonce } = await this.hostedFieldsInstance.tokenize();
-            this.props.onSubmit(nonce, this.state.billingAddress);
+        try {
+            if (this.props.tokenSubmit) {
+                this.props.onSubmit('', this.state.billingAddress);
+            } else {
+                const { nonce } = await this.hostedFieldsInstance.tokenize();
+                this.props.onSubmit(nonce, this.state.billingAddress);
+            }
+        } catch(e) {
+            this._notificationSystem.addNotification({
+                message: getBraintreeError(e),
+                level: 'error',
+                position: 'bc'
+            });
         }
+
     }
 
     render(){
+
         if (!this.state.showAddress) {
             return (
                 <Form onSubmit={this.onSubmit}>
+                    <NotificationSystem ref="notificationSystem" />
                     {this.props.children}
                 </Form>
             )
         }
         return (
-
             <Form onSubmit={this.onSubmit}>
+                <NotificationSystem ref="notificationSystem" />
                 <AddressForm billingAddress={this.state.billingAddress} handleChange={this.handleChange}/>
                 {this.props.children}
             </Form>
