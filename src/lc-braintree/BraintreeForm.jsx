@@ -79,13 +79,21 @@ class BraintreeForm extends React.Component {
         this.state = {
             formDisabled: true,
             billingAddress: {
-                firstName: props.address.firstName || '',
-                lastName: props.address.lastName || '',
-                postalCode: props.address.postalCode || '',
-                region: props.address.region || '',
-                locality: props.address.locality || '',
-                streetAddress: props.address.streetAddress || '',
-                extendedAddress: props.address.extendedAddress || '',
+                // firstName: props.address.firstName || '',
+                // lastName: props.address.lastName || '',
+                // postalCode: props.address.postalCode || '',
+                // region: props.address.region || '',
+                // locality: props.address.locality || '',
+                // streetAddress: props.address.streetAddress || '',
+                // extendedAddress: props.address.extendedAddress || '',
+                // countryName: 'US'
+                firstName: '',
+                lastName: '',
+                postalCode: '',
+                region: '',
+                locality: '',
+                streetAddress: '',
+                extendedAddress: '',
                 countryName: 'US'
             },
             showAddress: props.showAddress,
@@ -137,12 +145,8 @@ class BraintreeForm extends React.Component {
     async onSubmit(e){
         e.preventDefault();
         try {
-            if (this.props.tokenSubmit) {
-                this.props.onSubmit('', this.state.billingAddress);
-            } else {
-                const { nonce } = await this.hostedFieldsInstance.tokenize();
-                this.props.onSubmit(nonce, this.state.billingAddress);
-            }
+            const { nonce } = await this.hostedFieldsInstance.tokenize();
+            this.props.onSubmit(nonce, this.state.billingAddress);
         } catch(e) {
             this._notificationSystem.addNotification({
                 message: getBraintreeError(e),
