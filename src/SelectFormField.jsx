@@ -7,7 +7,6 @@ import 'leaseco_shared_component/src/lc-braintree/select/react-select.css';
 function SelectFormField({ validationChange, validationFunction, handleSelectFormChange, handleSelectBlur, validationState, handleBlur, id, label, help,  error, ...props }) {
     return (
         <FormGroup controlId={id} validationState={validationState}>
-            <ControlLabel>{label}</ControlLabel>
             <Select {...props} options={STATES} onChange={handleSelectFormChange} onBlur={handleSelectBlur}/>
             {help && <HelpBlock>{help}</HelpBlock>}
             {validationState === "error" && <HelpBlock>{error}</HelpBlock>}

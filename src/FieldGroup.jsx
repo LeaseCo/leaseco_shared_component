@@ -16,7 +16,10 @@ class FieldGroup extends React.Component {
             isPristine: true,
             errorMessage: ''
         };
-
+        this.validationFunction = this.props.validationFunction || null;
+        if (this.validationFunction) {
+            this.validationFunction = this.validationFunction.bind(this);
+        }
         this.handleBlur = this.handleBlur.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.validateValue = this.validateValue.bind(this);
@@ -24,7 +27,11 @@ class FieldGroup extends React.Component {
         this.handleSelectBlur = this.handleSelectBlur.bind(this);
     }
     validateValue(event) {
-        const validationResult = this.props.validationFunction(event.target.value);
+        if (!this.validationFunction) {
+            return '';
+        };
+
+        const validationResult = this.validationFunction(event.target.value);
         if (validationResult !== '') {
             this.props.validationChange(event.target.name, VALIDATION_MAP.ERROR);
             this.setState(prevState => {
