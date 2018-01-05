@@ -1,12 +1,12 @@
 import React from 'react';
 import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import MaskedInput from 'react-text-mask';
-function MaskedFormField({ mask, handleFormChange, validationState, handleBlur, id, label, help,  error, ...props }) {
-    const maskPhonePattern = ['+', '1', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+function MaskedFormField({ handleSelectBlur, handleSelectFormChange, handleFormBlur, validationChange, validationFunction, mask, handleFormChange, validationState, handleBlur, id, label, help,  error, ...props }) {
+    console.log(props);
     return (
         <FormGroup controlId={id} validationState={validationState}>
             <ControlLabel>{label}</ControlLabel>
-            <MaskedInput className={"form-control"}{...props}  showMask={true} mask={maskPhonePattern} onChange={handleFormChange} onBlur={handleBlur} />
+            <MaskedInput className={"form-control"}{...props}  showMask={true} mask={mask} onChange={handleFormChange} onBlur={handleBlur} />
             {help && <HelpBlock>{help}</HelpBlock>}
             {validationState === "error" && <HelpBlock>{error}</HelpBlock>}
         </FormGroup>

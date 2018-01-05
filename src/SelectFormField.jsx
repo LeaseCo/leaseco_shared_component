@@ -1,10 +1,15 @@
 import React from 'react';
 import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
-function SelectFormField({ handleFormChange, validationState, handleBlur, id, label, help,  error, ...props }) {
+import Select from 'react-select';
+import STATES from './lc-braintree/select/states';
+import 'leaseco_shared_component/src/lc-braintree/select/react-select.css';
+
+function SelectFormField({ validationChange, validationFunction, handleSelectFormChange, handleSelectBlur, validationState, handleBlur, id, label, help,  error, ...props }) {
+    console.log(props);
     return (
         <FormGroup controlId={id} validationState={validationState}>
             <ControlLabel>{label}</ControlLabel>
-            <Select {...props} onChange={handleFormChange} onBlur={handleBlur}/>
+            <Select {...props} options={STATES} onChange={handleSelectFormChange} onBlur={handleSelectBlur}/>
             {help && <HelpBlock>{help}</HelpBlock>}
             {validationState === "error" && <HelpBlock>{error}</HelpBlock>}
         </FormGroup>

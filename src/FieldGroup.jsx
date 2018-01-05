@@ -20,6 +20,8 @@ class FieldGroup extends React.Component {
         this.handleBlur = this.handleBlur.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.validateValue = this.validateValue.bind(this);
+        this.handleSelectFormChange = this.handleSelectFormChange.bind(this);
+        this.handleSelectBlur = this.handleSelectBlur.bind(this);
     }
     validateValue(event) {
         const validationResult = this.props.validationFunction(event.target.value);
@@ -45,7 +47,31 @@ class FieldGroup extends React.Component {
             this.validateValue(event);
         }
     }
-
+    handleSelectFormChange(value) {
+        const event = {
+            target: {
+                value,
+                name: "region"
+            }
+        }
+        this.handleFormChange(event);
+    }
+    handleSelectBlur(value) {
+        const event = {
+            target: {
+                value: this.props.value,
+                name: "region"
+            }
+        };
+        if (this.state.isPristine) {
+            this.setState(prevState => {
+                return {
+                    isPristine: false
+                }
+            });
+        }
+        this.validateValue(event);
+    }
     handleBlur(event) {
         if (this.state.isPristine) {
             this.setState(prevState => {
@@ -60,7 +86,9 @@ class FieldGroup extends React.Component {
     render() {
         const fieldProps = {
             handleFormChange: this.handleFormChange,
+            handleSelectFormChange: this.handleSelectFormChange,
             handleBlur: this.handleBlur,
+            handleSelectBlur: this.handleSelectBlur,
             error: this.state.errorMessage,
             ...this.props
         };
@@ -70,6 +98,7 @@ class FieldGroup extends React.Component {
             )
         }
         if (this.props.options) {
+
             return (
                 <SelectFormField {...fieldProps} />
             )
