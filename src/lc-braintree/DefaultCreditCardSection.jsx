@@ -33,12 +33,6 @@ class DefaultCreditCardSection extends React.Component {
                             <div className="form-control" id="cvv" />
                         </div>
                     </Col>
-                    <Col sm={6}>
-                        <div className="form-group">
-                            <label className="control-label">Zipcode</label>
-                            <div className="form-control" id="postal-code" />
-                        </div>
-                   </Col>
                 </Row>
             </div>
         )
