@@ -79,21 +79,13 @@ class BraintreeForm extends React.Component {
         this.state = {
             formDisabled: true,
             billingAddress: {
-                // firstName: props.address.firstName || '',
-                // lastName: props.address.lastName || '',
-                // postalCode: props.address.postalCode || '',
-                // region: props.address.region || '',
-                // locality: props.address.locality || '',
-                // streetAddress: props.address.streetAddress || '',
-                // extendedAddress: props.address.extendedAddress || '',
-                // countryName: 'US'
-                firstName: '',
-                lastName: '',
-                postalCode: '',
-                region: '',
-                locality: '',
-                streetAddress: '',
-                extendedAddress: '',
+                firstName: props.address.firstName || '',
+                lastName: props.address.lastName || '',
+                postalCode: props.address.postalCode || '',
+                region: props.address.region || '',
+                locality: props.address.locality || '',
+                streetAddress: props.address.streetAddress || '',
+                extendedAddress: props.address.extendedAddress || '',
                 countryName: 'US'
             },
             showAddress: props.showAddress,
