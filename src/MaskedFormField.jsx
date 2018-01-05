@@ -2,7 +2,6 @@ import React from 'react';
 import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import MaskedInput from 'react-text-mask';
 function MaskedFormField({ handleSelectBlur, handleSelectFormChange, handleFormBlur, validationChange, validationFunction, mask, handleFormChange, validationState, handleBlur, id, label, help,  error, ...props }) {
-    console.log(props);
     return (
         <FormGroup controlId={id} validationState={validationState}>
             <ControlLabel>{label}</ControlLabel>
