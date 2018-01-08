@@ -1,26 +1,12 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import FieldGroup from './FieldGroup';
+import AddressForm from './lc-braintree/AddressForm';
 
 function CustomerForm({ customer, submit, handleChange, status,...props }) {
     return (
         <Form onSubmit={submit}>
-            <FieldGroup
-                id="firstName"
-                type="text"
-                label="First Name"
-                value={customer.firstName}
-                name="firstName"
-                onChange={handleChange}
-            />
-            <FieldGroup
-                id="lastName"
-                type="text"
-                label="Last Name"
-                value={customer.lastName}
-                name="lastName"
-                onChange={handleChange}
-            />
+            <AddressForm billingAddress={customer} handleChange={handleChange}/>
             <FieldGroup
                 id="email"
                 type="email"
