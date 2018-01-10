@@ -34,6 +34,7 @@
     "babel-preset-stage-0": "6.24.1"
   },
   "dependencies": {
-    "react-notification-system": "0.2.16"
+    "react-notification-system": "0.2.16",
+    "react-text-mask": "5.1.0"
   }
 }
