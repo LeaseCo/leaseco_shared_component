@@ -76,21 +76,27 @@ class BraintreeForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this._notificationSystem = null;
+
+        const emptyBillingAddress = {
+                firstName: '',
+                lastName: '',
+                postalCode: '',
+                region: '',
+                locality: '',
+                streetAddress: '',
+                extendedAddress: '',
+                countryName: 'US'
+            }
+
+
+        const billingAddress = props.address ? this.getAddressFromProps(props) : emptyBillingAddress;
         this.state = {
             formDisabled: true,
-            billingAddress: {
-                firstName: props.address.firstName || '',
-                lastName: props.address.lastName || '',
-                postalCode: props.address.postalCode || '',
-                region: props.address.region || '',
-                locality: props.address.locality || '',
-                streetAddress: props.address.streetAddress || '',
-                extendedAddress: props.address.extendedAddress || '',
-                countryName: 'US'
-            },
+            billingAddress,
             showAddress: props.showAddress,
             errorMessage: props.errorMessage
         };
+        this.getAddressFromProps = this.getAddressFromProps.bind(this);
     }
     componentWillReceiveProps(props) {
         if (props.errorMessage === ''){
@@ -107,7 +113,19 @@ class BraintreeForm extends React.Component {
         this._notificationSystem = this.refs.notificationSystem;
 
     }
-
+    getAddressFromProps(props) {
+        const billingAddress = {
+            firstName: props.address.firstName || '',
+            lastName: props.address.lastName || '',
+            postalCode: props.address.postalCode || '',
+            region: props.address.region || '',
+            locality: props.address.locality || '',
+            streetAddress: props.address.streetAddress || '',
+            extendedAddress: props.address.extendedAddress || '',
+            countryName: 'US'
+        };
+        return billingAddress;
+    }
     async initBraintreeForm(){
         try{
             const clientToken = await this.props.getClientToken();
