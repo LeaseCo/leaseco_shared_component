@@ -32,11 +32,11 @@ function retrieveDescription(event) {
     }
     if (type === LEASE_EVENT_TYPES.AUTHORIZE) {
         const { amount } = eventInfo;
-        return `$${amount} has been authorized for this lease.`;
+        return `This lease has been authorized.`;
     }
     if (type === LEASE_EVENT_TYPES.CAPTURE) {
         const { amount } = eventInfo;
-        return `$${amount} has been captured for this lease.`;
+        return `This lease has been captured.`;
     }
     if (type === LEASE_EVENT_TYPES.REFUND) {
         const { refundAmount } = eventInfo;
