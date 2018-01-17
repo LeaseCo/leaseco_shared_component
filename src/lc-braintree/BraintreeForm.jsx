@@ -76,27 +76,14 @@ class BraintreeForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this._notificationSystem = null;
-
-        const emptyBillingAddress = {
-                firstName: '',
-                lastName: '',
-                postalCode: '',
-                region: '',
-                locality: '',
-                streetAddress: '',
-                extendedAddress: '',
-                countryName: 'US'
-            }
-
-
-        const billingAddress = props.address ? this.getAddressFromProps(props) : emptyBillingAddress;
+        const billingAddress = this.getAddress(props);
         this.state = {
             formDisabled: true,
             billingAddress,
             showAddress: props.showAddress,
             errorMessage: props.errorMessage
         };
-        this.getAddressFromProps = this.getAddressFromProps.bind(this);
+        this.getAddress = this.getAddress.bind(this);
     }
     componentWillReceiveProps(props) {
         if (props.errorMessage === ''){
@@ -113,15 +100,16 @@ class BraintreeForm extends React.Component {
         this._notificationSystem = this.refs.notificationSystem;
 
     }
-    getAddressFromProps(props) {
+    getAddress(props) {
+        const address = props.address || {};
         const billingAddress = {
-            firstName: props.address.firstName || '',
-            lastName: props.address.lastName || '',
-            postalCode: props.address.postalCode || '',
-            region: props.address.region || '',
-            locality: props.address.locality || '',
-            streetAddress: props.address.streetAddress || '',
-            extendedAddress: props.address.extendedAddress || '',
+            firstName: address.firstName || '',
+            lastName: address.lastName || '',
+            postalCode: address.postalCode || '',
+            region: address.region || '',
+            locality: address.locality || '',
+            streetAddress: address.streetAddress || '',
+            extendedAddress: address.extendedAddress || '',
             countryName: 'US'
         };
         return billingAddress;

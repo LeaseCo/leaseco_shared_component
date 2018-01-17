@@ -41,7 +41,7 @@ function LeaseDetails({ lease, ...props }) {
                 </Col>
                 <Col xs={3} md={3}>
                     <h3>Total Paid</h3>
-                    <h4>${lease._totalPaid.toFixed(2)}</h4>
+                    <h4>${lease.totalPaid.toFixed(2)}</h4>
                 </Col>
                 <Col xs={3} md={3}>
                     <h3>Remaining Balance</h3>
