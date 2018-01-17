@@ -76,21 +76,14 @@ class BraintreeForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this._notificationSystem = null;
+        const billingAddress = this.getAddress(props);
         this.state = {
             formDisabled: true,
-            billingAddress: {
-                firstName: props.address.firstName || '',
-                lastName: props.address.lastName || '',
-                postalCode: props.address.postalCode || '',
-                region: props.address.region || '',
-                locality: props.address.locality || '',
-                streetAddress: props.address.streetAddress || '',
-                extendedAddress: props.address.extendedAddress || '',
-                countryName: 'US'
-            },
+            billingAddress,
             showAddress: props.showAddress,
             errorMessage: props.errorMessage
         };
+        this.getAddress = this.getAddress.bind(this);
     }
     componentWillReceiveProps(props) {
         if (props.errorMessage === ''){
@@ -107,7 +100,20 @@ class BraintreeForm extends React.Component {
         this._notificationSystem = this.refs.notificationSystem;
 
     }
-
+    getAddress(props) {
+        const address = props.address || {};
+        const billingAddress = {
+            firstName: address.firstName || '',
+            lastName: address.lastName || '',
+            postalCode: address.postalCode || '',
+            region: address.region || '',
+            locality: address.locality || '',
+            streetAddress: address.streetAddress || '',
+            extendedAddress: address.extendedAddress || '',
+            countryName: 'US'
+        };
+        return billingAddress;
+    }
     async initBraintreeForm(){
         try{
             const clientToken = await this.props.getClientToken();
