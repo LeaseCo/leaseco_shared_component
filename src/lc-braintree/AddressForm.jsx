@@ -115,7 +115,7 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                         type="text"
                         name="countryName"
                         placeholder="region"
-                        value={billingAddress.countryName}
+                        value={billingAddress.countryCodeAlpha2}
                         error="This field is required."
                         onChange={handleChange}
                         disabled

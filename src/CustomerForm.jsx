@@ -3,10 +3,10 @@ import { Form, Button } from 'react-bootstrap';
 import FieldGroup from './FieldGroup';
 import AddressForm from './lc-braintree/AddressForm';
 
-function CustomerForm({ customer, submit, handleChange, status,...props }) {
+function CustomerForm({ customer, submit, handleChange, handleAddressChange, submitting,...props }) {
     return (
         <Form onSubmit={submit}>
-            <AddressForm billingAddress={customer} handleChange={handleChange}/>
+            <AddressForm billingAddress={customer.Address} handleChange={handleAddressChange}/>
             <FieldGroup
                 id="email"
                 type="email"
@@ -51,9 +51,9 @@ function CustomerForm({ customer, submit, handleChange, status,...props }) {
             <Button
                 bsStyle="primary"
                 type="submit"
-                disabled={status}
+                disabled={submitting}
             >
-                {status ? 'Submitting...' : 'Submit'}
+                {submitting ? 'Submitting...' : 'Submit'}
             </Button>
         </Form>
     );
