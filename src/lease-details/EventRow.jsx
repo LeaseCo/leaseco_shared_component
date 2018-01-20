@@ -7,7 +7,8 @@ const LEASE_EVENT_TYPES = {
     CANCEL: 'Cancellation',
     AUTHORIZE: 'Authorization',
     CAPTURE: 'Capture',
-    REFUND: 'Refund'
+    REFUND: 'Refund',
+    VOID: 'Void'
 };
 
 function retrieveDescription(event) {
@@ -16,6 +17,11 @@ function retrieveDescription(event) {
     if (type === LEASE_EVENT_TYPES.EARLY_PAYOFF) {
         const { amount } = eventInfo;
         return `User paid $${amount} to payoff the rest of this lease.`;
+    }
+
+    if (type === LEASE_EVENT_TYPES.VOID) {
+        const { amount } = eventInfo;
+        return `This lease has been voided.`;
     }
 
     if (type === LEASE_EVENT_TYPES.CHANGE_TOKEN) {
@@ -32,11 +38,11 @@ function retrieveDescription(event) {
     }
     if (type === LEASE_EVENT_TYPES.AUTHORIZE) {
         const { amount } = eventInfo;
-        return `$${amount} has been authorized for this lease.`;
+        return `This lease has been authorized.`;
     }
     if (type === LEASE_EVENT_TYPES.CAPTURE) {
         const { amount } = eventInfo;
-        return `$${amount} has been captured for this lease.`;
+        return `This lease has been captured.`;
     }
     if (type === LEASE_EVENT_TYPES.REFUND) {
         const { refundAmount } = eventInfo;
