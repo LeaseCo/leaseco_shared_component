@@ -110,7 +110,7 @@ class BraintreeForm extends React.Component {
             locality: address.locality || '',
             streetAddress: address.streetAddress || '',
             extendedAddress: address.extendedAddress || '',
-            countryName: 'US'
+            countryCodeAlpha2: 'US'
         };
         return billingAddress;
     }
@@ -160,6 +160,7 @@ class BraintreeForm extends React.Component {
         if (!this.state.showAddress) {
             return (
                 <Form onSubmit={this.onSubmit}>
+                    <h4> Billing Address </h4>
                     <NotificationSystem ref="notificationSystem" />
                     {this.props.children}
                 </Form>
@@ -167,6 +168,7 @@ class BraintreeForm extends React.Component {
         }
         return (
             <Form onSubmit={this.onSubmit}>
+                <h4> Billing Address </h4>
                 <NotificationSystem ref="notificationSystem" />
                 <AddressForm billingAddress={this.state.billingAddress} handleChange={this.handleChange}/>
                 {this.props.children}
