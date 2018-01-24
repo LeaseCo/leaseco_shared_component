@@ -7,18 +7,18 @@ function LeaseOrders({ orders, lease, ...props }) {
     return (
         <div>
             <Row>
-                <Col xs={12} md={12}>
+                <Col xs={12} sm={12}>
                     <h3>Order Details</h3>
                 </Col>
             </Row>
             <hr />
             <Row>
-                <Col xs={12} md={12}>
+                <Col xs={12} sm={12}>
                     <LeaseItemTable orders={orders}/>
                 </Col>
             </Row>
             <Row>
-                <Col xs={4} xsOffset={8}>
+                <Col xs={8} xsOffset={4} sm={6} smOffset={6}>
                     <LeaseTotalTable lease={lease}/>
                 </Col>
             </Row>

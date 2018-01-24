@@ -7,12 +7,11 @@ function LeasePayments({ paymentMethod, transactions, ...props }) {
     return (
         <div>
             <Row>
-                <Col xs={6} md={6}>
+                <Col xs={12} sm={4}>
                     <PaymentMethodDetails paymentMethod={paymentMethod}/>
                 </Col>
-                <Col xs={6} md={6}>
+                <Col xs={12} sm={8}>
                     <h3>Payments Made</h3>
-                    <hr />
                     <LeasePaymentTable transactions={transactions} />
                 </Col>
             </Row>

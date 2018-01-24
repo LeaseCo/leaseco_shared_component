@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap';
 
 function LeaseTotalTable({ lease, ...props }) {
     return (
-        <Table responsive condensed style={{align:"right"}}>
+        <Table condensed style={{align:"right"}}>
             <thead>
                 <tr></tr>
             </thead>

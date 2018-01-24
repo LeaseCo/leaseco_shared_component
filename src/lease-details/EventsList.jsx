@@ -17,18 +17,21 @@ class EventsList extends React.Component {
         });
 
         return (
-            <Table responsive striped bordered condensed hover>
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Event</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                {tableRows}
-                </tbody>
-            </Table>
+            <div>
+                <h3>Events</h3>
+                <Table responsive striped bordered condensed hover>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {tableRows}
+                    </tbody>
+                </Table>
+            </div>
         )
     }
 }
