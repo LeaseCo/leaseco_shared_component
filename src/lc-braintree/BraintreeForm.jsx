@@ -85,9 +85,9 @@ class BraintreeForm extends React.Component {
         };
         this.getAddress = this.getAddress.bind(this);
     }
-    componentWillReceiveProps(props) {
+    componentDidUpdate(props) {
         if (props.errorMessage === ''){
-            return
+            return;
         }
         this._notificationSystem.addNotification({
             message: props.errorMessage,
@@ -112,6 +112,7 @@ class BraintreeForm extends React.Component {
             extendedAddress: address.extendedAddress || '',
             countryCodeAlpha2: 'US'
         };
+
         return billingAddress;
     }
     async initBraintreeForm(){
@@ -156,7 +157,6 @@ class BraintreeForm extends React.Component {
     }
 
     render(){
-
         if (!this.state.showAddress) {
             return (
                 <Form onSubmit={this.onSubmit}>
@@ -166,6 +166,7 @@ class BraintreeForm extends React.Component {
                 </Form>
             )
         }
+
         return (
             <Form onSubmit={this.onSubmit}>
                 <h4> Billing Address </h4>

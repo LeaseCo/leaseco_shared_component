@@ -15,7 +15,6 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
         };
         handleChange(event);
     }
-
     return (
         <div>
             <Row>
