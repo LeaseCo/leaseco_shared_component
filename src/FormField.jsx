@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
-import MaskedInput from 'react-text-mask';
+
 
 function FormField({ handleSelectFormChange, handleSelectBlur, handleFormBlur, validationChange, validationFunction, validationState, handleFormChange, handleBlur, id, label, help,  error, ...props }) {
 
