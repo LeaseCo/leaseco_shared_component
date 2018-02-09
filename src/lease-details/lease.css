@@ -1,0 +1,5 @@
+@media (max-width: 36em) {
+    .col-xs-3 {
+        width: 50% !important;
+    }
+}

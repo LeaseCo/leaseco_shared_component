@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap';
 import moment from 'moment';
+import './lease.css';
 
 function LeaseDetails({ lease, ...props }) {
     const isActive = lease._isActive;
