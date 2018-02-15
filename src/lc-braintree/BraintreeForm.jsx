@@ -17,7 +17,7 @@ const STYLES = {
 function getBraintreeError(error) {
     const code = error.code;
     if (code === "HOSTED_FIELDS_FIELDS_EMPTY") {
-        return 'All fields are empty! Please fill out the form.';
+        return 'Please fill out your credit card information.';
     }
 
     if (code === "HOSTED_FIELDS_FIELDS_INVALID") {

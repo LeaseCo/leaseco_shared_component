@@ -21,12 +21,12 @@ function LeaseDetails({ lease, ...props }) {
                     <h4>{lease.orderId}</h4>
                 </Col>
                 <Col xs={3} md={3}>
-                    <h3>Down Payment</h3>
-                    <h4>${lease._downPaymentAmount.toFixed(2)}</h4>
+                    <h3>Past Due Balance</h3>
+                    <h4>${lease.pastDueBalance.toFixed(2)}</h4>
                 </Col>
                 <Col xs={3} md={3}>
-                    <h3>Lease Payment</h3>
-                    <h4>${(Math.floor(100 * lease._totalRecurringAmount) / 100).toFixed(2)}</h4>
+                    <h3>Remaining Balance</h3>
+                    <h4>{isActive ? '$' + lease._remainingBalance.toFixed(2) : 'N/A'} </h4>
                 </Col>
             </Row>
             <hr/>
@@ -44,8 +44,8 @@ function LeaseDetails({ lease, ...props }) {
                     <h4>${lease.totalPaid.toFixed(2)}</h4>
                 </Col>
                 <Col xs={3} md={3}>
-                    <h3>Remaining Balance</h3>
-                    <h4>{isActive ? '$' + lease._remainingBalance.toFixed(2) : 'N/A'} </h4>
+                    <h3>Lease Payment</h3>
+                    <h4>${(Math.floor(100 * lease._totalRecurringAmount) / 100).toFixed(2)}</h4>
                 </Col>
             </Row>
         </div>
