@@ -26,7 +26,7 @@ function LeaseDetails({ lease, ...props }) {
                 </Col>
                 <Col xs={3} md={3}>
                     <h3>Lease Payment</h3>
-                    <h4>${lease._totalRecurringAmount.toFixed(2)}</h4>
+                    <h4>${(Math.floor(100 * lease._totalRecurringAmount) / 100).toFixed(2)}</h4>
                 </Col>
             </Row>
             <hr/>
