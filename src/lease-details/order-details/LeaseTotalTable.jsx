@@ -10,15 +10,15 @@ function LeaseTotalTable({ lease, ...props }) {
             <tbody>
                 <tr>
                     <td>Subtotal<sub>(discount included)</sub></td>
-                    <td>${lease.orderAmount}</td>
+                    <td>${lease.orderAmount.toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>Shipping & Handling</td>
-                    <td>${lease.shippingAmount}</td>
+                    <td>${lease.shippingAmount.toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>Tax</td>
-                    <td>${(lease.taxRate * (lease.orderAmount + lease.shippingAmount)).toFixed(2)}</td>
+                    <td>${(lease.taxRate * lease.orderAmount).toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>Cost of Rental</td>
