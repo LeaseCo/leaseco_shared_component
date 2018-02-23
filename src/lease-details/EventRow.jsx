@@ -25,8 +25,7 @@ function retrieveDescription(event) {
     }
 
     if (type === LEASE_EVENT_TYPES.CHANGE_TOKEN) {
-        const { previousToken, newToken } = eventInfo;
-        return `User changed this lease's token from the old token ${previousToken} to this new token ${newToken}.`
+        return `Payment method has been updated.`
     }
 
     if (type === LEASE_EVENT_TYPES.REQUEST_CANCEL) {
@@ -34,7 +33,7 @@ function retrieveDescription(event) {
     }
 
     if (type === LEASE_EVENT_TYPES.CANCEL) {
-        return `Lease has been canceled.`
+        return `This lease has been canceled.`
     }
     if (type === LEASE_EVENT_TYPES.AUTHORIZE) {
         const { amount } = eventInfo;
@@ -46,7 +45,7 @@ function retrieveDescription(event) {
     }
     if (type === LEASE_EVENT_TYPES.REFUND) {
         const { refundAmount } = eventInfo;
-        return `$${refundAmount} has been refunded back to the user`;
+        return `$${refundAmount} has been refunded back to the user.`;
     }
 };
 
