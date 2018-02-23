@@ -100,12 +100,13 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                         autoFocus
                         options={STATES}
                         simpleValue
-                        clearable={true}
+                        clearable={false}
                         name="region"
                         value={billingAddress.region}
                         onChange={selectOnChangeHandler}
                         openOnClick={false}
                         searchable={true}
+                        required
                     />
                 </Col>
                 <Col xs={2} sm={2} md={2}>
