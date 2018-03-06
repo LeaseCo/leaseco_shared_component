@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 const LEASE_EVENT_TYPES = {
     EARLY_PAYOFF: 'Early Payoff',
-    CHANGE_TOKEN: 'Change Token',
+    CHANGE_TOKEN: 'Change Payment Method',
     REQUEST_CANCEL: 'Request Cancel',
     CANCEL: 'Cancellation',
     AUTHORIZE: 'Authorization',
