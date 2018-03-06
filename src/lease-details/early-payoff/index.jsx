@@ -12,7 +12,7 @@ function EarlyPayoffTable({ earlyPayoffData, ...props }) {
             <thead>
             <tr>
                 <th>Billing Cycle </th>
-                <th>Total Payment Including Tax</th>
+                <th>Total Payment</th>
             </tr>
             </thead>
             <tbody>
