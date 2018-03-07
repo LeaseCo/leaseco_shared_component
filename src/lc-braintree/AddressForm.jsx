@@ -97,7 +97,6 @@ function AddressForm({ handleChange, billingAddress, ...props }) {
                 <Col xs={4} sm={4} md={4}>
                     <Select
                         id="region"
-                        autoFocus
                         options={STATES}
                         simpleValue
                         clearable={false}
