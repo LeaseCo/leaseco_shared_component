@@ -8,7 +8,8 @@ const LEASE_EVENT_TYPES = {
     AUTHORIZE: 'Authorization',
     CAPTURE: 'Capture',
     REFUND: 'Refund',
-    VOID: 'Void'
+    VOID: 'Void',
+    AGREEMENT: 'Signed Agreement',
 };
 
 function retrieveDescription(event) {
@@ -46,6 +47,9 @@ function retrieveDescription(event) {
     if (type === LEASE_EVENT_TYPES.REFUND) {
         const { refundAmount } = eventInfo;
         return `$${refundAmount} has been refunded back to the user.`;
+    }
+    if (type === LEASE_EVENT_TYPES.AGREEMENT) {
+        return `The lease agreement was signed.`;
     }
 };
 
